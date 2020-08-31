@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {EventListenerHook} from "../types";
+import {EventListenerHook} from "./types";
 
 /**
  * helper utility hook handles adding and removing a listener

@@ -21,6 +21,7 @@
     "node_modules",
     "__tests__",
     "public",
-    "demo"
+    "demo",
+    "lib"
   ]
 }

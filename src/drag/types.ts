@@ -13,16 +13,6 @@ export interface MoveProps {
   disabled?: boolean;
 }
 
-export interface MovePropsXY {
-  isDragging: boolean;
-  setIsDragging(isDragging: boolean): void;
-  x: number;
-  setX(x: number): void;
-  y: number;
-  setY(y: number): void;
-  disabled?: boolean;
-}
-
 /**
  * hook definition for creating div binding
  */

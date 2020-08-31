@@ -1,6 +1,6 @@
 {
   "name": "@lindapaiste/react-controls",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "react hooks for handling mouse and keyboard events",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -44,5 +44,8 @@
   },
   "dependencies": {
     "@lindapaiste/geometry": "^1.0.6"
-  }
+  },
+  "files": [
+    "lib/**/*"
+  ]
 }

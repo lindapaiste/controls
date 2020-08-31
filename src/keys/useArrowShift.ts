@@ -1,5 +1,5 @@
 import useKeydownListener from "./useKeydownListener";
-import { EventListenerHook } from "../types";
+import { EventListenerHook } from "./types";
 import { useCallback } from "react";
 
 /**
