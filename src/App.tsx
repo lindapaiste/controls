@@ -1,52 +1,52 @@
 import * as React from "react";
-import "./styles.css";
 import useArrowMove from "./keys/useArrowMove";
 import ClickMove from "./drag/ClickMove";
+import useMouseMove from "./drag/useMouseMove";
+import useDragMove from "./drag/useDragMove";
+import useClickMove from "./drag/useClickMove";
+import useClickDragMove from "./drag/useClickDragMove";
 
 export default function App() {
-    const [x, setX] = React.useState(50);
+  const [x, setX] = React.useState(50);
 
-    const [y, setY] = React.useState(50);
+  const [y, setY] = React.useState(50);
 
-    const [isDragging, setIsDragging] = React.useState(false);
+  const [isDragging, setIsDragging] = React.useState(false);
 
-    const moveX = React.useCallback((n: number) => setX((prev) => prev + n), [
-        setX
-    ]);
-    const moveY = React.useCallback((n: number) => setY((prev) => prev + n), [
-        setY
-    ]);
+  /**
+   * arrow and click/drag share props
+   */
+  const dragProps = { x, y, setX, setY, isDragging, setIsDragging };
 
-    useArrowMove({
-        moveX,
-        moveY
-    });
-
-    return (
-        <div
-            style={{
-                position: "relative"
-            }}
-        >
-            <ClickMove
-                x={x}
-                setX={setX}
-                y={y}
-                setY={setY}
-                isDragging={isDragging}
-                setIsDragging={setIsDragging}
-            >
-                <div
-                    style={{
-                        position: "absolute",
-                        top: y,
-                        left: x,
-                        width: 100,
-                        height: 100,
-                        backgroundColor: "blue"
-                    }}
-                />
-            </ClickMove>
-        </div>
-    );
+  return (
+    <div
+      style={{
+        position: "relative"
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          top: y,
+          left: x,
+          width: 100,
+          height: 100,
+          backgroundColor: "blue"
+        }}
+        {...useClickDragMove(dragProps)}
+        {...useArrowMove(dragProps)}
+      />
+    </div>
+  );
 }
+
+/*
+      <ClickMove
+        x={x}
+        setX={setX}
+        y={y}
+        setY={setY}
+        isDragging={isDragging}
+        setIsDragging={setIsDragging}
+      >
+*/
