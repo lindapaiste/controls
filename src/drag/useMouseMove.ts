@@ -26,7 +26,8 @@ export default ({
   x,
   setX,
   y,
-  setY
+  setY,
+  disabled = false
 }: Props): Returns => {
   /**
    * store the position of the mouseDown event
@@ -39,9 +40,11 @@ export default ({
   const [initial, setInitial] = useState<{ x: number; y: number }>();
 
   const startMove = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    setMouseDown(e.nativeEvent);
-    setInitial({ x, y });
+    if (!disabled) {
+      setIsDragging(true);
+      setMouseDown(e.nativeEvent);
+      setInitial({ x, y });
+    }
   };
 
   const endMove = (e: React.MouseEvent) => {
@@ -50,7 +53,7 @@ export default ({
 
   const mouseMoveListener = useCallback(
     (e: MouseEvent) => {
-      if (isDragging) {
+      if (isDragging && !disabled) {
         console.log("drag moving");
         console.log(e);
         if (!mouseDown || !initial) {
@@ -65,7 +68,7 @@ export default ({
         setY(initial.y + delta.y);
       }
     },
-    [initial, mouseDown, isDragging, setX, setY]
+    [initial, mouseDown, isDragging, setX, setY, disabled]
   );
 
   React.useEffect(() => {

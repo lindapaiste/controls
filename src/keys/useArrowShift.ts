@@ -24,18 +24,24 @@ export interface Props {
    * how much to move on each key press
    */
   increment?: number;
+  /**
+   * can disable arrow movements by pasing prop disabled=true
+   */
+  disabled?: boolean;
 }
 
 export default ({
   shiftX,
   shiftY,
   increment = 1,
-  invert = false
+  invert = false,
+  disabled = false
 }: Props): EventListenerHook => {
   /**
    * apply inversion to increment -- or don't
+   * handle disabled by setting move to 0
    */
-  const _increment = increment * (invert ? -1 : 1);
+  const _increment = disabled ? 0 : increment * (invert ? -1 : 1);
 
   /**
    * how to handle each key
