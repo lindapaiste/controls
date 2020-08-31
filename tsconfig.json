@@ -1,8 +1,11 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es6",
+    "target": "es5",
     "sourceMap": true,
+    "declaration": true,
+    "strict": true,
+    "outDir": "./lib",
     "lib": [
       "esnext",
       "es2017",
@@ -11,7 +14,13 @@
     "esModuleInterop": true,
     "jsx": "react"
   },
+  "include": [
+    "src"
+  ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "__tests__",
+    "public",
+    "demo"
   ]
 }

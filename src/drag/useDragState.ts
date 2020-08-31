@@ -1,5 +1,53 @@
-import {DragEventHandlers, DragProps, DragState} from "./types";
 import {useState} from "react";
+// @ts-ignore
+import {IRangeMethods} from "@lindapaiste/geometry/lib/range";
+import {IPoint} from "@lindapaiste/geometry";
+
+export interface DragProps {
+    /**
+     * boundaries is an object which has a method to constrain a point
+     */
+    boundaries?: IRangeMethods<IPoint>;
+    /**
+     * can start with an initial translation, but does this make sense?
+     * vs. starting at 0,0 and adding the initial higher up
+     */
+    initialTranslateX?: number;
+    initialTranslateY?: number;
+}
+
+export interface DragEventHandlers {
+    onDragStart(e: MouseEvent): void;
+
+    onDragEnd(e: MouseEvent): void;
+
+    onDragMove(e: MouseEvent): void;
+}
+
+/**
+ * note: could reduce the number of variables if storing previous x/y instead of start
+ */
+export interface DragState {
+    /**
+     * save the position where the mouse move started in order to see how much it has changed
+     */
+    startMouseX: number;
+    startMouseY: number;
+    /**
+     * the current translation, cumulative across all drags
+     */
+    translateX: number;
+    translateY: number;
+    /**
+     * the existing translation at the start of this current drag movement
+     */
+    startTranslateX: number;
+    startTranslateY: number;
+    /**
+     * whether or not the mouse is currently dragging
+     */
+    isDragging: boolean;
+}
 
 /**
  * converting the old DragController class which takes render as a prop
@@ -14,9 +62,7 @@ import {useState} from "react";
  * what about integrating with native PanResponder?
  */
 
-
-export default ({boundaries}: Pick<DragProps, 'boundaries'>): DragState & DragEventHandlers => {
-
+export default ({boundaries}: Pick<DragProps, "boundaries">): DragState & DragEventHandlers => {
     const [state, setState] = useState<DragState>({
         startMouseX: 0,
         startMouseY: 0,
@@ -24,30 +70,32 @@ export default ({boundaries}: Pick<DragProps, 'boundaries'>): DragState & DragEv
         translateY: 0,
         startTranslateX: 0,
         startTranslateY: 0,
-        isDragging: false,
-    })
+        isDragging: false
+    });
 
     const onDragStart = (e: MouseEvent) => {
         e.preventDefault();
-        console.log('beginning drag');
-        setState(prevState => ({
+        console.log("beginning drag");
+        setState((prevState) => ({
             ...prevState,
             isDragging: true,
             startMouseX: e.screenX,
             startMouseY: e.screenY,
             startTranslateX: prevState.translateX,
-            startTranslateY: prevState.translateY,
+            startTranslateY: prevState.translateY
         }));
-        window.addEventListener('mousemove', onDragMove);
-        window.addEventListener('mouseup', onDragEnd);
-    }
+        window.addEventListener("mousemove", onDragMove);
+        window.addEventListener("mouseup", onDragEnd);
+    };
 
     const onDragMove = (e: MouseEvent) => {
         if (state.isDragging) {
             e.preventDefault();
             const dx = e.screenX - state.startMouseX;
             const dy = e.screenY - state.startMouseY;
-            const move = boundaries ? boundaries.constrain({x: dx, y: dy}) : ({x: dx, y: dy});
+            const move = boundaries
+                ? boundaries.constrain({x: dx, y: dy})
+                : {x: dx, y: dy};
             /**const translate = {
                 x: this.state.startTranslateX + x,
                 y: this.state.startTranslateY + y
@@ -56,30 +104,30 @@ export default ({boundaries}: Pick<DragProps, 'boundaries'>): DragState & DragEv
                 //don't pass this current movement, pass the overall translation
                 this.props.onDrag(translate);
             }*/
-            setState(prevState => ({
+            setState((prevState) => ({
                 ...prevState,
                 translateX: prevState.startTranslateX + move.x,
-                translateY: prevState.startTranslateY + move.y,
+                translateY: prevState.startTranslateY + move.y
             }));
             //return so that it can be used for the onDragEnd callback
             return move;
         }
-    }
+    };
 
     const onDragEnd = () => {
         /*let move = this.doDrag(e);
-        if (this.props.onDragEnd) {
-          this.props.onDragEnd(move);
-        }*/
-        setState(prevState => ({
+            if (this.props.onDragEnd) {
+              this.props.onDragEnd(move);
+            }*/
+        setState((prevState) => ({
             ...prevState,
             isDragging: false
         }));
         //console.log(move);
-        window.removeEventListener('mousemove', onDragMove);
-        window.addEventListener('mouseup', onDragEnd);
-        console.log('ending drag');
-    }
+        window.removeEventListener("mousemove", onDragMove);
+        window.addEventListener("mouseup", onDragEnd);
+        console.log("ending drag");
+    };
 
     //useEffect clean-up?
 
@@ -87,6 +135,6 @@ export default ({boundaries}: Pick<DragProps, 'boundaries'>): DragState & DragEv
         ...state,
         onDragStart,
         onDragEnd,
-        onDragMove,
-    }
-}
+        onDragMove
+    };
+};

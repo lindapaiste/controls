@@ -1,6 +1,7 @@
-import { Props as DragProps } from "../drag/types";
+import { MoveProps as DragProps } from "../drag/types";
 import useArrowShift, { Props as ArrowProps } from "./useArrowShift";
 import { useCallback } from "react";
+import {shiftX as shiftPointX, shiftY as shiftPointY} from "@lindapaiste/geometry";
 
 /**
  * uses the same props interface as drag movers instead of than the shift function props on useArrowShift
@@ -8,12 +9,18 @@ import { useCallback } from "react";
  * does not return anything because it attaches listener to the window
  */
 
-export type Props = Pick<DragProps, "x" | "y" | "setX" | "setY"> &
+export type Props = Pick<DragProps, "position" | "setPosition"> &
   Omit<ArrowProps, "shiftX" | "shiftY">;
 
-export default ({ x, y, setX, setY, ...passed }: Props) => {
-  const shiftX = useCallback((n: number) => setX(x + n), [x, setX]);
-  const shiftY = useCallback((n: number) => setY(y + n), [y, setY]);
+export default ({ position, setPosition, ...passed }: Props) => {
+  const shiftX = useCallback(
+      (n: number) => setPosition(shiftPointX(position, n)),
+      [position.x, setPosition]
+  );
+  const shiftY = useCallback(
+      (n: number) => setPosition(shiftPointY(position, n)),
+      [position.y, setPosition]
+  );
 
   return useArrowShift({
     ...passed,
