@@ -1,9 +1,5 @@
 import * as React from "react";
 import useArrowMove from "./keys/useArrowMove";
-import ClickMove from "./drag/ClickMove";
-import useMouseMove from "./drag/useMouseMove";
-import useDragMove from "./drag/useDragMove";
-import useClickMove from "./drag/useClickMove";
 import useClickDragMove from "./drag/useClickDragMove";
 
 export default function App() {
@@ -39,14 +35,3 @@ export default function App() {
     </div>
   );
 }
-
-/*
-      <ClickMove
-        x={x}
-        setX={setX}
-        y={y}
-        setY={setY}
-        isDragging={isDragging}
-        setIsDragging={setIsDragging}
-      >
-*/
