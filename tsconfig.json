@@ -9,7 +9,7 @@
       "dom"
     ],
     "esModuleInterop": true,
-    "jsx": "react-native"
+    "jsx": "react"
   },
   "exclude": [
     "node_modules"
