@@ -1,7 +1,5 @@
 import {useState} from "react";
-// @ts-ignore
-import {IRangeMethods} from "@lindapaiste/geometry/lib/range";
-import {IPoint} from "@lindapaiste/geometry";
+import {IPoint, IRangeMethods} from "@lindapaiste/geometry";
 
 export interface DragProps {
     /**
@@ -75,7 +73,6 @@ export default ({boundaries}: Pick<DragProps, "boundaries">): DragState & DragEv
 
     const onDragStart = (e: MouseEvent) => {
         e.preventDefault();
-        console.log("beginning drag");
         setState((prevState) => ({
             ...prevState,
             isDragging: true,
@@ -96,40 +93,26 @@ export default ({boundaries}: Pick<DragProps, "boundaries">): DragState & DragEv
             const move = boundaries
                 ? boundaries.constrain({x: dx, y: dy})
                 : {x: dx, y: dy};
-            /**const translate = {
-                x: this.state.startTranslateX + x,
-                y: this.state.startTranslateY + y
-            }
-             if (this.props.onDrag) {
-                //don't pass this current movement, pass the overall translation
-                this.props.onDrag(translate);
-            }*/
             setState((prevState) => ({
                 ...prevState,
                 translateX: prevState.startTranslateX + move.x,
                 translateY: prevState.startTranslateY + move.y
             }));
-            //return so that it can be used for the onDragEnd callback
+            // return so that it can be used for the onDragEnd callback
             return move;
         }
     };
 
     const onDragEnd = () => {
-        /*let move = this.doDrag(e);
-            if (this.props.onDragEnd) {
-              this.props.onDragEnd(move);
-            }*/
         setState((prevState) => ({
             ...prevState,
             isDragging: false
         }));
-        //console.log(move);
         window.removeEventListener("mousemove", onDragMove);
         window.addEventListener("mouseup", onDragEnd);
-        console.log("ending drag");
     };
 
-    //useEffect clean-up?
+    // useEffect clean-up?
 
     return {
         ...state,

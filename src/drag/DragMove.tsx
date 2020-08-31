@@ -1,26 +1,8 @@
-import useDragMove, {Props as HookProps} from "./useDragMove";
-import React, {PropsWithChildren, useEffect} from "react";
+import React from "react";
+import makeBoundDiv from "./makeBoundDiv";
+import useDragMove from "./useDragMove";
 
 /**
  * component automatically handles binding event handlers by wrapping in a div
  */
-
-type Props = HookProps & {
-    setIsDragging?: (isDragging: boolean) => void;
-}
-
-export default ({moveX, moveY, setIsDragging, children}: PropsWithChildren<Props>) => {
-    const { isDragging, ...handlers } = useDragMove({ moveX, moveY });
-
-    useEffect(() => {
-        if (setIsDragging) {
-            setIsDragging(isDragging);
-        }
-    }, [isDragging]);
-
-    return (
-        <div draggable="true" {...handlers}>
-            {children}
-        </div>
-    );
-};
+export default makeBoundDiv(useDragMove);

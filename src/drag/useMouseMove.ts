@@ -20,7 +20,7 @@ export interface Returns {
     /**
      * return the mouseDown position for use by ClickDragMove
      */
-    mouseDown: MouseEvent;
+    mouseDown?: MouseEvent;
 }
 
 export default ({ isDragging, setIsDragging, position, setPosition, disabled = false }: MoveProps): Returns => {

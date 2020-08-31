@@ -23,9 +23,9 @@ export default (props: MoveProps): Returns => {
          * movement between mouse down and mouse up.
          */
         onMouseUp: (e) => {
-            if (
+            if ( mouseDown && (
                 e.nativeEvent.pageX !== mouseDown.pageX ||
-                e.nativeEvent.pageY !== mouseDown.pageY
+                e.nativeEvent.pageY !== mouseDown.pageY )
             ) {
                 endMove(e);
             }
