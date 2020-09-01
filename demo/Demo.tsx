@@ -2,7 +2,7 @@ import * as React from "react";
 import useArrowMove from "../src/keys/useArrowMove";
 import useClickDragMove from "../src/mouse/useClickDragMove";
 
-export default function App() {
+export default () => {
   const [position, setPosition] = React.useState({x: 50, y: 50});
 
   const [isDragging, setIsDragging] = React.useState(false);
