@@ -1,6 +1,6 @@
 import * as React from "react";
 import useArrowMove from "../src/keys/useArrowMove";
-import useClickDragMove from "../src/drag/useClickDragMove";
+import useClickDragMove from "../src/mouse/useClickDragMove";
 
 export default function App() {
   const [position, setPosition] = React.useState({x: 50, y: 50});

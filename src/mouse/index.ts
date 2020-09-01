@@ -3,8 +3,6 @@ import useClickMove from "./useClickMove";
 import useDragMove from "./useDragMove";
 import useClickDragMove from "./useClickDragMove";
 
-export * from "./types";
-
 export const ClickMove = makeBoundDiv(useClickMove);
 export const DragMove = makeBoundDiv(useDragMove);
 export const ClickDragMove = makeBoundDiv(useClickDragMove);

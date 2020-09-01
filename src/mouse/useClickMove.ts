@@ -1,5 +1,5 @@
 import * as React from "react";
-import {MoveProps} from "./types";
+import {MouseMoveProps} from "../types";
 import useMouseMove from "./useMouseMove";
 
 /**
@@ -17,7 +17,7 @@ export interface Returns {
     onMouseDown(e: React.MouseEvent): void;
 }
 
-export default (props: MoveProps): Returns => {
+export default (props: MouseMoveProps): Returns => {
     const {startMove, endMove} = useMouseMove(props);
 
     return {
