@@ -15,7 +15,7 @@ import {shiftBy} from "@lindapaiste/geometry";
 export interface Returns {
     startMove(e: React.MouseEvent): void;
 
-    endMove(e: React.MouseEvent): void;
+    endMove(e?: React.MouseEvent): void;
 
     /**
      * return the mouseDown position for use by ClickDragMove
