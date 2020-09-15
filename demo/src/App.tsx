@@ -1,9 +1,7 @@
 import * as React from "react";
-import { render } from "react-dom";
-import useClickDragMove from "../src/mouse/useClickDragMove";
-import useArrowMove from "../src/keys/useArrowMove";
+import {useArrowMove, useClickDragMove} from "@lindapaiste/react-controls";
 
-const Demo = () => {
+export default () => {
     const [position, setPosition] = React.useState({x: 50, y: 50});
 
     const [isDragging, setIsDragging] = React.useState(false);
@@ -34,7 +32,3 @@ const Demo = () => {
         </div>
     );
 }
-
-
-const rootElement = document.getElementById("root");
-render(<Demo />, rootElement);

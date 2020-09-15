@@ -1,1 +1,2 @@
-export {default as directionShift} from "./directionShift";
+export {default as useDirectionShift} from "./useDirectionShift";
+export {usePairedShift, useSingleShift} from "./shiftToXY";

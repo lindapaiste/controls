@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useCallback, useState} from "react";
 import {MouseMoveProps, XY} from "../types";
-import {shiftBy} from "@lindapaiste/geometry";
+import {shiftPointBy} from "@lindapaiste/geometry";
 
 /**
  * want ClickMove and DragMove to share as much logic as possible
@@ -57,7 +57,7 @@ export default ({ isDragging, setIsDragging, position, setPosition, disabled = f
                     x: e.pageX - mouseDown.pageX,
                     y: e.pageY - mouseDown.pageY
                 };
-                setPosition(shiftBy(initial, delta));
+                setPosition(shiftPointBy(initial, delta));
             }
         },
         [initial, mouseDown, isDragging, setPosition, disabled]

@@ -1,12 +1,12 @@
 import useKeydownListener from "./useKeydownListener";
 import {useCallback} from "react";
 import {EventListenerHook, IncrementedShiftProps} from "../types";
-import directionShift from "../agnostic/directionShift";
+import {useDirectionShift} from "../agnostic";
 import {getArrowDirection} from "./getKeyDirection";
 
 export default (props: IncrementedShiftProps): EventListenerHook => {
 
-    const onDirection = directionShift(props);
+    const onDirection = useDirectionShift(props);
 
     const handleKeyPress = useCallback(
         (e: KeyboardEvent): void => {

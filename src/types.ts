@@ -28,7 +28,7 @@ export interface BaseMoveProps {
 /**
  * mouse move takes all of the Base props, but also takes a set state pair isDragging & setIsDragging
  */
-export interface MouseMoveProps extends BaseMoveProps {
+export interface IsDraggingProps {
     /**
      * whether the object is currently moving
      */
@@ -38,6 +38,8 @@ export interface MouseMoveProps extends BaseMoveProps {
      * callback to update isDragging when the movement starts and ends
      */
     setIsDragging(isDragging: boolean): void;
+}
+export interface MouseMoveProps extends BaseMoveProps, IsDraggingProps {
 }
 
 /**

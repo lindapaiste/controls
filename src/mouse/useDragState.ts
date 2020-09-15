@@ -1,11 +1,11 @@
 import {useState} from "react";
-import {IPoint, IRangeMethods} from "@lindapaiste/geometry";
+import {CanConstrain, XY} from "@lindapaiste/geometry";
 
 export interface DragProps {
     /**
      * boundaries is an object which has a method to constrain a point
      */
-    boundaries?: IRangeMethods<IPoint>;
+    boundaries?: CanConstrain<XY>;
     /**
      * can start with an initial translation, but does this make sense?
      * vs. starting at 0,0 and adding the initial higher up
