@@ -6,9 +6,16 @@ export interface XY {
 }
 
 /**
+ * most actions can accept an optional disabled prop such that the action is ignored if disabled is true
+ */
+export interface PropDisabled {
+    disabled?: boolean;
+}
+
+/**
  * expects the position state to be stored externally and passed in with a value (position) and setter (setPosition)
  */
-export interface BaseMoveProps {
+export interface BaseMoveProps extends PropDisabled {
     /**
      * the x/y position at the current moment
      */
@@ -59,6 +66,21 @@ export interface IncrementProps {
 }
 
 /**
+ * get and set a value
+ */
+interface EditProps<T> {
+    value: T;
+    setValue(val: T): void;
+}
+
+export type SetValueProps = EditProps<number>;
+
+/**
+ * for incrementing a single numeric value
+ */
+export type IncrementedValueProps = IncrementProps & PropDisabled & SetValueProps;
+
+/**
  * an incremented move combines the Base with Increment props
  */
 export interface IncrementedMoveProps extends IncrementProps, BaseMoveProps {
@@ -89,9 +111,7 @@ export type EitherShift = ShiftPosition | ShiftPair;
  * for when the position is not passed down.
  * callback with the amount to move rather than the the new position
  */
-export type ShiftProps  = EitherShift & {
-    disabled?: boolean;
-}
+export type ShiftProps  = EitherShift & PropDisabled;
 
 export type IncrementedShiftProps = ShiftProps & IncrementProps;
 
@@ -112,3 +132,8 @@ export interface EventListenerHook {
 
 export type Direction = "up" | "down" | "left" | "right";
 
+export interface IncreaseDecreasePair {
+    increase(): void;
+
+    decrease(): void;
+}

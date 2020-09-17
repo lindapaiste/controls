@@ -1,6 +1,7 @@
 import {Direction, IncrementedShiftProps} from "../types";
-import {useCallback, useMemo} from "react";
+import {useCallback} from "react";
 import {usePairedShift} from "./shiftToXY";
+import {useIncrement} from "./useIncrement";
 
 /**
  * creates a function which takes the direction as a props and calls the shift function based on increment props
@@ -8,18 +9,11 @@ import {usePairedShift} from "./shiftToXY";
 
 type Returns = (dir: Direction | null | undefined) => void;
 
-export default ({disabled = false, increment = 1, invert = false, ...props}: IncrementedShiftProps): Returns => {
+export default (props: IncrementedShiftProps): Returns => {
 
     const {shiftX, shiftY} = usePairedShift(props);
 
-    /**
-     * apply inversion to increment -- or don't
-     * handle disabled by setting move to 0
-     */
-    const _increment = useMemo(
-        () => disabled ? 0 : increment * (invert ? -1 : 1),
-        [disabled, increment, invert]
-    );
+    const _increment = useIncrement(props);
 
     /**
      * map direction to movement
