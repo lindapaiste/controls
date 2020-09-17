@@ -1,11 +1,13 @@
 import * as React from "react";
-import {useArrowMove, useClickDragMove} from "@lindapaiste/react-controls";
+import {useArrowMove, useClickDragMove, usePlusMinusValue} from "@lindapaiste/react-controls";
+import {useState} from "react";
 
 export default () => {
-    const [position, setPosition] = React.useState({x: 50, y: 50});
+    const [position, setPosition] = useState({x: 50, y: 50});
 
-    const [isDragging, setIsDragging] = React.useState(false);
+    const [isDragging, setIsDragging] = useState(false);
 
+    const [scale, setScale] = useState(1);
     /**
      * arrow and click/drag share props
      */
@@ -22,12 +24,17 @@ export default () => {
                     position: "absolute",
                     top: position.y,
                     left: position.x,
-                    width: 100,
-                    height: 100,
+                    width: 100 * scale,
+                    height: 100 * scale,
                     backgroundColor: "blue"
                 }}
                 {...useClickDragMove(dragProps)}
                 {...useArrowMove(dragProps)}
+                {...usePlusMinusValue({
+                    value: scale,
+                    setValue: setScale,
+                    increment: .1,
+                })}
             />
         </div>
     );

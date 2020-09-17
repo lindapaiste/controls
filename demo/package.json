@@ -8,6 +8,11 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "react-dom": "^16.13.1",
     "react-scripts": "^3.4.3"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.49",
+    "@types/react-dom": "^16.9.8"
   }
 }
