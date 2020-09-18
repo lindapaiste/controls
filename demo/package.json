@@ -5,7 +5,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "relink": "cd ../ && npm run build && cd demo && npm link "
   },
   "dependencies": {
     "react-dom": "^16.13.1",
